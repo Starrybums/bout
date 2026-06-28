@@ -1,0 +1,36 @@
+{
+  "name": "bout",
+  "version": "0.2.0",
+  "description": "BOUT — Briefing, Order Flow, Updates, Timing. A terminal-native AI market research desk: macro context, news impact, order flow/volume/heat-map/rhythm/ICT analysis, strategy confluence, watchlists, journaling. Research and education only, not financial advice. JustBout.com",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "bin": {
+    "bout": "dist/apps/cli/index.js"
+  },
+  "main": "dist/apps/cli/index.js",
+  "scripts": {
+    "build": "tsc -p .",
+    "start": "node dist/apps/cli/index.js",
+    "dev": "tsx apps/cli/index.ts",
+    "clean": "rimraf dist"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^12.1.0",
+    "dotenv": "^16.4.5",
+    "yaml": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "fsevents@2.3.3": true
+  }
+}

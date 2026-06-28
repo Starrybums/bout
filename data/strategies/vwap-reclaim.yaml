@@ -1,0 +1,33 @@
+# Sample strategy definition — consumed by the Backtest Agent (placeholder).
+# This describes the strategy declaratively; BOUT does not execute
+# trades or guarantee any result from this definition.
+
+name: vwap-reclaim
+description: >
+  Looks for price losing the session VWAP intraday, then reclaiming it with
+  rising relative volume — a common mean-reversion / continuation setup
+  discussed in many retail futures-trading communities.
+market: ["ES", "NQ"]
+timeframe: "5m"
+status: placeholder # no backtest engine wired up yet
+
+rules:
+  entry:
+    - "Price closes below session VWAP for at least 2 consecutive 5m bars"
+    - "Price closes back above session VWAP on rising volume vs the prior bar"
+  exit:
+    - "Target: prior swing high or 1.5R, whichever is closer"
+    - "Stop: low of the reclaim bar minus a small buffer"
+  invalidation:
+    - "Price closes back below VWAP before the target is hit"
+
+risk:
+  max_risk_per_trade_pct: 1.0
+  notes: >
+    This is a research note, not a recommendation. Position sizing and
+    risk tolerance are the trader's own responsibility.
+
+backtest:
+  engine: null
+  history_loaded: false
+  last_run: null

@@ -1,0 +1,399 @@
+[
+  {
+    "name": "VWAP Reclaim",
+    "slug": "vwap-reclaim",
+    "description": "Price loses the session VWAP intraday, then reclaims it with rising relative volume — a mean-reversion/continuation setup to watch, common in retail futures-trading communities.",
+    "marketType": [
+      "ES",
+      "NQ"
+    ],
+    "requiredContext": [
+      "Price closes below session VWAP for at least 2 consecutive bars",
+      "Price closes back above VWAP on rising relative volume vs. the prior bar"
+    ],
+    "confirmationSigns": [
+      "Volume module reads 'confirms' rather than 'rejects' on the reclaim bar",
+      "Order flow bias not strongly opposed to the reclaim direction"
+    ],
+    "invalidationSigns": [
+      "Price closes back below VWAP before any target is reached"
+    ],
+    "riskNotes": "Historical/contextual bias only — size and stops are the trader's own responsibility. Works best with volume confirmation; weak without it.",
+    "bestSessionOrTimeWindow": "Morning trend window (10:00–11:30 ET), after the opening range establishes a level to reclaim",
+    "avoidConditions": [
+      "Lunch chop window (11:30–13:30 ET)",
+      "Within 15 minutes of a high-impact scheduled release"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "trending",
+        "ranging"
+      ],
+      "rhythmStatesAvoid": [
+        "choppy"
+      ],
+      "avoidWhenHighImpactEventToday": false,
+      "relatedSymbols": [
+        "ES",
+        "NQ"
+      ],
+      "relatedOrderFlowConcepts": [
+        "Volume at price"
+      ],
+      "requiresVolumeConfirms": true
+    }
+  },
+  {
+    "name": "Liquidity Sweep Reversal",
+    "slug": "liquidity-sweep-reversal",
+    "description": "A fast wick through a well-known prior high/low (resting liquidity), followed by a quick reclaim back inside the prior range — a 'stop run then reverse' pattern to watch.",
+    "marketType": [
+      "ES",
+      "NQ",
+      "GC",
+      "CL"
+    ],
+    "requiredContext": [
+      "A clearly defined prior session high or low",
+      "A wick piercing that level, ideally on a volume spike",
+      "A close back inside the prior range"
+    ],
+    "confirmationSigns": [
+      "Order flow module flags a liquidity sweep or trapped-traders read",
+      "ICT module flags a liquidity sweep concept on the same symbol"
+    ],
+    "invalidationSigns": [
+      "Price closes back beyond the wick extreme (failed reclaim)"
+    ],
+    "riskNotes": "Conditions to monitor, not a guaranteed reversal — liquidity sweeps can fail outright in strongly trending conditions.",
+    "bestSessionOrTimeWindow": "Any session with a clearly defined prior high/low nearby; most commonly watched around the opening range and NY AM window",
+    "avoidConditions": [
+      "Strongly trending, event-driven days where sweeps tend to simply continue rather than reverse"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "ranging",
+        "choppy"
+      ],
+      "rhythmStatesAvoid": [
+        "event-driven"
+      ],
+      "avoidWhenHighImpactEventToday": true,
+      "relatedSymbols": [
+        "ES",
+        "NQ",
+        "GC",
+        "CL"
+      ],
+      "relatedOrderFlowConcepts": [
+        "Liquidity sweep",
+        "Trapped traders"
+      ],
+      "requiresVolumeConfirms": false
+    }
+  },
+  {
+    "name": "Opening Range Breakout (ORB)",
+    "slug": "opening-range-breakout",
+    "description": "Price breaks outside the first 30 minutes' high/low range with conviction — a classic momentum setup to watch on trend days.",
+    "marketType": [
+      "ES",
+      "NQ",
+      "GC",
+      "CL"
+    ],
+    "requiredContext": [
+      "A defined opening range (09:30–10:00 ET)",
+      "A close beyond the range high or low",
+      "Supportive relative volume on the break"
+    ],
+    "confirmationSigns": [
+      "Rhythm module reads 'trending' for the session",
+      "Volume module reads 'confirms' on the breakout bar"
+    ],
+    "invalidationSigns": [
+      "Price re-enters the opening range shortly after breaking out (failed breakout)"
+    ],
+    "riskNotes": "Works best on genuine trend days; tends to produce failed breakouts on range/choppy days. Historical/contextual bias only.",
+    "bestSessionOrTimeWindow": "Opening range (09:30–10:00 ET) through the morning trend window (10:00–11:30 ET)",
+    "avoidConditions": [
+      "Rhythm module reads 'choppy' or 'ranging' for the session"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "trending",
+        "event-driven"
+      ],
+      "rhythmStatesAvoid": [
+        "choppy",
+        "ranging"
+      ],
+      "avoidWhenHighImpactEventToday": false,
+      "relatedSymbols": [
+        "ES",
+        "NQ",
+        "GC",
+        "CL"
+      ],
+      "relatedOrderFlowConcepts": [
+        "Aggressive buying/selling"
+      ],
+      "requiresVolumeConfirms": true
+    }
+  },
+  {
+    "name": "Trend Continuation Pullback",
+    "slug": "trend-continuation",
+    "description": "A shallow pullback within an established intraday trend, watched for a resumption in the direction of the prevailing move.",
+    "marketType": [
+      "ES",
+      "NQ",
+      "GC",
+      "CL",
+      "EURUSD",
+      "BTC"
+    ],
+    "requiredContext": [
+      "An established directional trend on the session",
+      "A pullback that holds a prior structure point rather than breaking it"
+    ],
+    "confirmationSigns": [
+      "Order flow bias aligned with the prevailing trend direction",
+      "Volume module not flagging exhaustion"
+    ],
+    "invalidationSigns": [
+      "Pullback breaks the prior structure point that defined the trend"
+    ],
+    "riskNotes": "Requires confirmation that the trend is still intact — late-stage trends are more prone to exhaustion. Historical/contextual bias only.",
+    "bestSessionOrTimeWindow": "Morning trend window (10:00–11:30 ET) or early afternoon (13:30–15:00 ET) once a trend is established",
+    "avoidConditions": [
+      "Volume module flags exhaustion",
+      "Rhythm module reads 'choppy'"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "trending"
+      ],
+      "rhythmStatesAvoid": [
+        "choppy",
+        "ranging"
+      ],
+      "avoidWhenHighImpactEventToday": false,
+      "relatedSymbols": [
+        "ES",
+        "NQ",
+        "GC",
+        "CL",
+        "EURUSD",
+        "BTC"
+      ],
+      "relatedOrderFlowConcepts": [],
+      "requiresVolumeConfirms": true
+    }
+  },
+  {
+    "name": "News Reaction Retest",
+    "slug": "news-reaction-retest",
+    "description": "After an initial volatile reaction to a high-importance headline or release, price pulls back to retest the pre-news level or the breakout level — watched as a second, lower-volatility entry opportunity.",
+    "marketType": [
+      "ES",
+      "NQ",
+      "DXY",
+      "GC"
+    ],
+    "requiredContext": [
+      "A high-importance news impact card or high-impact calendar event today",
+      "An initial sharp directional reaction",
+      "A retest of the pre-news level or breakout level that holds"
+    ],
+    "confirmationSigns": [
+      "Retest holds without fully reversing the initial reaction",
+      "Volume cools on the retest vs. the initial spike"
+    ],
+    "invalidationSigns": [
+      "Price fully reverses through the pre-news level on the retest"
+    ],
+    "riskNotes": "Requires confirmation that the retest is holding — first reactions to news are often choppy and two-sided. Risk warning: avoid sizing up in the first few minutes after the headline.",
+    "bestSessionOrTimeWindow": "Within 30–90 minutes after a high-importance headline or scheduled release",
+    "avoidConditions": [
+      "Trading the first 1–2 minutes immediately after the headline, before any retest has formed"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "event-driven"
+      ],
+      "rhythmStatesAvoid": [],
+      "avoidWhenHighImpactEventToday": false,
+      "requiresHighImportanceNewsToday": true,
+      "relatedSymbols": [
+        "ES",
+        "NQ",
+        "DXY",
+        "GC"
+      ],
+      "relatedOrderFlowConcepts": [],
+      "requiresVolumeConfirms": false
+    }
+  },
+  {
+    "name": "Gold / DXY / Yield Confirmation",
+    "slug": "gold-dxy-yield-confirmation",
+    "description": "Uses the typical inverse relationship between gold and the US Dollar (and the broader rates backdrop) as a cross-asset confirmation check before treating a gold setup as higher-quality context.",
+    "marketType": [
+      "GC",
+      "DXY"
+    ],
+    "requiredContext": [
+      "A directional setup on Gold (GC)",
+      "DXY reading in the opposite direction on the heat map module, consistent with the historical inverse relationship"
+    ],
+    "confirmationSigns": [
+      "Heat map correlation note confirms the typical Gold/USD inverse relationship is holding today"
+    ],
+    "invalidationSigns": [
+      "Heat map correlation note flags the Gold/USD relationship as NOT holding today — cross-asset confirmation is absent"
+    ],
+    "riskNotes": "This is a contextual confirmation check, not a standalone setup — use it to add or subtract confidence in a separately-identified Gold setup. Historical/contextual bias only; the relationship weakens periodically.",
+    "bestSessionOrTimeWindow": "Any session, but most relevant around US data releases that move rates and the dollar together",
+    "avoidConditions": [
+      "Heat map module flags the Gold/USD relationship as currently decoupled"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [],
+      "rhythmStatesAvoid": [],
+      "avoidWhenHighImpactEventToday": false,
+      "relatedSymbols": [
+        "GC",
+        "DXY"
+      ],
+      "requiresGoldUsdInverseHolding": true,
+      "relatedOrderFlowConcepts": [],
+      "requiresVolumeConfirms": false
+    }
+  },
+  {
+    "name": "Oil Inventory Reaction",
+    "slug": "oil-inventory-reaction",
+    "description": "Watches Crude Oil (CL) around the weekly EIA inventories release for a short-lived volatility spike and potential follow-through.",
+    "marketType": [
+      "CL"
+    ],
+    "requiredContext": [
+      "EIA Crude Oil Inventories on today's calendar",
+      "An initial directional reaction to the release (larger-than-expected draws are typically watched as bullish context; larger builds as bearish context)"
+    ],
+    "confirmationSigns": [
+      "Reaction holds or extends in the first 10–15 minutes after release",
+      "Volume module reads a spike on the release bar"
+    ],
+    "invalidationSigns": [
+      "Price round-trips back through the pre-release level within minutes"
+    ],
+    "riskNotes": "Reactions to this release are often sharp and short-lived; risk warning: spreads can widen quickly in the first minute. Historical/contextual bias only.",
+    "bestSessionOrTimeWindow": "Around the scheduled EIA release time (typically mid-morning ET)",
+    "avoidConditions": [
+      "No EIA Crude Oil Inventories event on today's calendar — context for this strategy doesn't apply"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "event-driven"
+      ],
+      "rhythmStatesAvoid": [],
+      "avoidWhenHighImpactEventToday": false,
+      "requiresCalendarEventTitleContains": "Crude Oil",
+      "relatedSymbols": [
+        "CL"
+      ],
+      "relatedOrderFlowConcepts": [],
+      "requiresVolumeConfirms": false
+    }
+  },
+  {
+    "name": "Forex Session Breakout",
+    "slug": "forex-session-breakout",
+    "description": "Watches for a directional breakout as a major FX session opens (London or NY), when liquidity and participation step up.",
+    "marketType": [
+      "EURUSD",
+      "DXY"
+    ],
+    "requiredContext": [
+      "Price coiling in a tight range into a session open (London or NY)",
+      "A break of that range shortly after the session opens, on rising participation"
+    ],
+    "confirmationSigns": [
+      "ICT module shows an active kill zone (London open or NY AM)",
+      "Order flow bias aligned with the breakout direction"
+    ],
+    "invalidationSigns": [
+      "Price re-enters the pre-breakout range shortly after the session open"
+    ],
+    "riskNotes": "Historical/contextual bias only — session-open breakouts can be two-sided before a real direction emerges. Risk warning: avoid oversizing the first move.",
+    "bestSessionOrTimeWindow": "London open kill zone (02:00–05:00 ET) or NY AM kill zone (07:00–10:00 ET)",
+    "avoidConditions": [
+      "No active kill zone currently flagged by the ICT module"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "trending",
+        "event-driven"
+      ],
+      "rhythmStatesAvoid": [],
+      "avoidWhenHighImpactEventToday": false,
+      "requiresActiveKillZone": true,
+      "relatedSymbols": [
+        "EURUSD",
+        "DXY"
+      ],
+      "relatedOrderFlowConcepts": [],
+      "requiresVolumeConfirms": false
+    }
+  },
+  {
+    "name": "ICT Liquidity Sweep + Market Structure Shift",
+    "slug": "ict-sweep-mss",
+    "description": "A two-step ICT-style sequence: a sweep of resting liquidity beyond a prior high/low, followed by a market structure shift in the opposite direction — watched together as stronger context than either alone.",
+    "marketType": [
+      "ES",
+      "NQ",
+      "GC",
+      "EURUSD"
+    ],
+    "requiredContext": [
+      "ICT module flags a liquidity sweep concept",
+      "ICT module also flags a market structure shift concept in the direction opposite the swept side",
+      "Ideally inside an active kill zone"
+    ],
+    "confirmationSigns": [
+      "Both concepts point the same directional way (sweep down + bullish MSS, or sweep up + bearish MSS)",
+      "Active kill zone at the time of the sequence"
+    ],
+    "invalidationSigns": [
+      "Structure resumes the pre-sweep trend without confirming the shift"
+    ],
+    "riskNotes": "ICT-style concepts describe a popular price-action framework, not a guaranteed system — this is a setup to watch requiring confirmation, never a guaranteed trade.",
+    "bestSessionOrTimeWindow": "NY AM kill zone (07:00–10:00 ET) or London open kill zone (02:00–05:00 ET)",
+    "avoidConditions": [
+      "Only one of the two concepts (sweep or MSS) is flagged without the other"
+    ],
+    "matchTags": {
+      "rhythmStatesFavorable": [
+        "event-driven",
+        "trending"
+      ],
+      "rhythmStatesAvoid": [],
+      "avoidWhenHighImpactEventToday": false,
+      "requiresActiveKillZone": false,
+      "requiresIctSweepAndMss": true,
+      "relatedSymbols": [
+        "ES",
+        "NQ",
+        "GC",
+        "EURUSD"
+      ],
+      "relatedOrderFlowConcepts": [
+        "Liquidity sweep"
+      ],
+      "requiresVolumeConfirms": false
+    }
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "cal-001",
+    "title": "CPI (Consumer Price Index) m/m",
+    "time": "2026-06-25T12:30:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "high",
+    "affectedAssets": ["ES", "NQ", "DXY", "GC", "BTC"],
+    "explanation": "Measures inflation. Hotter-than-expected prints tend to push rate-cut expectations out and strengthen the dollar; cooler prints often do the opposite. Historically one of the highest-volatility releases of the month."
+  },
+  {
+    "id": "cal-002",
+    "title": "FOMC Rate Decision + Press Conference",
+    "time": "2026-06-25T18:00:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "high",
+    "affectedAssets": ["ES", "NQ", "DXY", "GC", "BTC", "EURUSD"],
+    "explanation": "The Fed's policy statement and Chair press conference. Markets react heavily to the dot plot, forward guidance language, and tone shifts versus the prior meeting. Expect elevated volatility in the 30 minutes after release."
+  },
+  {
+    "id": "cal-003",
+    "title": "Non-Farm Payrolls (NFP)",
+    "time": "2026-07-03T12:30:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "high",
+    "affectedAssets": ["ES", "NQ", "DXY", "GC"],
+    "explanation": "Headline jobs report. A strong beat can revive 'higher for longer' rate narratives; a big miss can spark growth-scare selling. Watch the unemployment rate and average hourly earnings alongside the headline number."
+  },
+  {
+    "id": "cal-004",
+    "title": "Initial Jobless Claims",
+    "time": "2026-06-26T12:30:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "medium",
+    "affectedAssets": ["ES", "NQ", "DXY"],
+    "explanation": "Weekly labor-market check-in. Usually a smaller mover than NFP, but a sharp trend break (claims rising several weeks in a row) can become a macro talking point."
+  },
+  {
+    "id": "cal-005",
+    "title": "EIA Crude Oil Inventories",
+    "time": "2026-06-25T14:30:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "medium",
+    "affectedAssets": ["CL"],
+    "explanation": "Weekly US crude stockpile data. Larger-than-expected draws are typically bullish for crude; larger builds are typically bearish. Can cause sharp, short-lived spikes in CL around the release."
+  },
+  {
+    "id": "cal-006",
+    "title": "Fed Speaker — Regional President Q&A",
+    "time": "2026-06-26T16:00:00Z",
+    "country": "US",
+    "region": "North America",
+    "impactLevel": "low",
+    "affectedAssets": ["ES", "NQ", "DXY"],
+    "explanation": "Scheduled remarks from a regional Fed president. Usually low-impact unless the speaker deviates from the FOMC's recent messaging or addresses a hot-button topic like inflation persistence."
+  },
+  {
+    "id": "cal-007",
+    "title": "ECB Rate Decision",
+    "time": "2026-06-26T11:45:00Z",
+    "country": "EU",
+    "region": "Europe",
+    "impactLevel": "high",
+    "affectedAssets": ["EURUSD", "DXY"],
+    "explanation": "European Central Bank policy decision. Divergence between Fed and ECB policy paths is a key driver of EURUSD trend over multi-week horizons."
+  }
+]

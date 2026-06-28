@@ -1,0 +1,68 @@
+[
+  {
+    "id": "news-001",
+    "headline": "Treasury yields slip as traders position ahead of CPI print",
+    "source": "Sample Wire Service",
+    "region": "North America",
+    "affectedAssets": ["ES", "NQ", "DXY", "GC"],
+    "category": "macro",
+    "timestamp": "2026-06-25T08:15:00Z",
+    "summary": "Sample data: yields eased in early trading as desks trimmed risk ahead of the inflation report, a typical pre-event positioning pattern rather than a directional signal on its own.",
+    "sourceUrl": "https://example.com/news/sample-treasury-yields"
+  },
+  {
+    "id": "news-002",
+    "headline": "Mega-cap tech earnings beat estimates, guidance mixed",
+    "source": "Sample Markets Desk",
+    "region": "North America",
+    "affectedAssets": ["NQ"],
+    "category": "earnings",
+    "timestamp": "2026-06-25T05:30:00Z",
+    "summary": "Sample data: a cluster of large technology companies reported earnings above consensus, but forward guidance was mixed, leaving index futures roughly flat into the session.",
+    "sourceUrl": "https://example.com/news/sample-tech-earnings"
+  },
+  {
+    "id": "news-003",
+    "headline": "OPEC+ signals no change to current production levels",
+    "source": "Sample Energy Wire",
+    "region": "Global",
+    "affectedAssets": ["CL"],
+    "category": "commodities",
+    "timestamp": "2026-06-24T19:00:00Z",
+    "summary": "Sample data: producers reportedly left output quotas unchanged, removing one source of near-term supply uncertainty for crude markets.",
+    "sourceUrl": "https://example.com/news/sample-opec-production"
+  },
+  {
+    "id": "news-004",
+    "headline": "Spot Bitcoin ETF flows turn positive for a third straight session",
+    "source": "Sample Crypto Desk",
+    "region": "Global",
+    "affectedAssets": ["BTC"],
+    "category": "crypto",
+    "timestamp": "2026-06-25T01:00:00Z",
+    "summary": "Sample data: ETF flow trackers reportedly showed consecutive days of net inflows, often cited as a sentiment gauge though flows can reverse quickly on macro shifts.",
+    "sourceUrl": "https://example.com/news/sample-btc-etf-flows"
+  },
+  {
+    "id": "news-005",
+    "headline": "Dollar index holds near key technical level ahead of Fed",
+    "source": "Sample FX Wire",
+    "region": "Global",
+    "affectedAssets": ["DXY", "EURUSD"],
+    "category": "fx",
+    "timestamp": "2026-06-25T07:00:00Z",
+    "summary": "Sample data: DXY consolidated near a widely-watched chart level, with desks framing the FOMC decision as the likely catalyst for a breakout in either direction.",
+    "sourceUrl": "https://example.com/news/sample-dxy-technical"
+  },
+  {
+    "id": "news-006",
+    "headline": "Regional bank highlights deposit stability in investor letter",
+    "source": "Sample Financials Wire",
+    "region": "North America",
+    "affectedAssets": ["ES"],
+    "category": "financials",
+    "timestamp": "2026-06-24T13:00:00Z",
+    "summary": "Sample data: a regional lender's shareholder letter emphasized stable deposit bases, a sector talking point that resurfaces periodically since the 2023 regional-bank stress episode.",
+    "sourceUrl": "https://example.com/news/sample-regional-bank-letter"
+  }
+]

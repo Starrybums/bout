@@ -1,0 +1,35 @@
+# Sample strategy definition — consumed by the Backtest Agent (placeholder).
+# This describes the strategy declaratively; BOUT does not execute
+# trades or guarantee any result from this definition.
+
+name: liquidity-sweep
+description: >
+  Looks for a fast wick through a well-known prior high/low (resting
+  liquidity) followed by a quick reclaim back inside the prior range —
+  a "stop run then reverse" pattern referenced often in price-action
+  trading communities.
+market: ["ES", "NQ", "GC", "CL"]
+timeframe: "1m-5m"
+status: placeholder # no backtest engine wired up yet
+
+rules:
+  entry:
+    - "Identify a clearly defined prior session high or low"
+    - "Wait for a wick that pierces that level on a volume spike"
+    - "Enter on the first close back inside the prior range"
+  exit:
+    - "Target: opposite side of the range, or 2R, whichever is closer"
+    - "Stop: beyond the wick extreme plus a small buffer"
+  invalidation:
+    - "Price closes back beyond the wick extreme (failed reclaim)"
+
+risk:
+  max_risk_per_trade_pct: 1.0
+  notes: >
+    This is a research note, not a recommendation. Liquidity sweeps can
+    fail in trending conditions — context (see Macro Agent output) matters.
+
+backtest:
+  engine: null
+  history_loaded: false
+  last_run: null
