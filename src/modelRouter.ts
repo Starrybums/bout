@@ -63,7 +63,7 @@ async function callClaude(request: ModelRequest, config: ModelProviderConfig): P
       "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify({
-      model: config.model || "claude-sonnet-4-6",
+      model: config.model || "claude-sonnet-5",
       max_tokens: 1024,
       system: systemMessages.join("\n\n") || undefined,
       messages: conversation,
@@ -81,7 +81,7 @@ async function callClaude(request: ModelRequest, config: ModelProviderConfig): P
     .map((block) => block.text)
     .join("\n");
 
-  return { provider: "claude", model: config.model || "claude-sonnet-4-6", text };
+  return { provider: "claude", model: config.model || "claude-sonnet-5", text };
 }
 
 // ---------------------------------------------------------------------------

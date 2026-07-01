@@ -118,6 +118,11 @@ export function writeJournalReviewMarkdown(entry: JournalEntry, review: JournalR
   lines.push(review.ruleViolations.length ? review.ruleViolations.map((s) => `- ${s}`).join("\n") : "- None flagged.");
   lines.push("");
   lines.push("## Improvement For Next Time");
+  lines.push(
+    review.improvementForNextTime.length ? review.improvementForNextTime.map((s) => `- ${s}`).join("\n") : "- —"
+  );
+  lines.push("");
+
   fs.writeFileSync(filePath, lines.join("\n"), "utf-8");
   return filePath;
 }

@@ -20,6 +20,7 @@ export function strategyShowCommand(query: string): void {
     const templates = loadStrategyTemplates();
     console.log(chalk.red(`No strategy found matching "${query}".`));
     console.log(chalk.dim(`Available slugs: ${templates.map((t) => t.slug).join(", ")}`));
+    process.exitCode = 1;
     return;
   }
 

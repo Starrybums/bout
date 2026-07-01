@@ -29,9 +29,20 @@ export function getEventsForToday(referenceDate: Date = new Date()): EconomicEve
   });
   if (upcoming.length > 0) return sortByTime(upcoming);
 
-  // Final fallback: show the soonest events in the sample set so `brief today`
-  // and `calendar today` are never empty when exploring with sample data.
-  return sortByTime(events).slice(0, 3);
+  // Final fallback: nothing lands on referenceDate or the next 24h (sample data
+  // is a fixed window and will drift stale). Show the 3 events *nearest* to
+  // referenceDate — preferring upcoming over past on a tie — instead of just
+  // the chronologically-first events in the file, which could be arbitrarily
+  // old and misleading in a "today" brief.
+  const byDistance = [...events].sort((a, b) => {
+    const da = new Date(a.time).getTime() - referenceDate.getTime();
+    const db = new Date(b.time).getTime() - referenceDate.getTime();
+    const absDiff = Math.abs(da) - Math.abs(db);
+    if (absDiff !== 0) return absDiff;
+    // tie-break: prefer the future event
+    return (da < 0 ? 1 : 0) - (db < 0 ? 1 : 0);
+  });
+  return sortByTime(byDistance.slice(0, 3));
 }
 
 export function getUpcomingEvents(days = 7, referenceDate: Date = new Date()): EconomicEvent[] {

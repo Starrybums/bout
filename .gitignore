@@ -1,7 +1,11 @@
 node_modules/
 dist/
 .env
-data/local/*.db
-data/local/*.db-journal
+data/local/*
+!data/local/.gitkeep
+reports/*.md
+reports/journal/*.md
+!reports/.gitkeep
+!reports/journal/.gitkeep
 *.log
 .DS_Store

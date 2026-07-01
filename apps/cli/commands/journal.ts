@@ -33,11 +33,13 @@ export async function journalAddCommand(options: JournalAddOptions): Promise<voi
   if (!options.symbol) {
     console.log(chalk.red("Missing required --symbol <SYMBOL>"));
     printUsage();
+    process.exitCode = 1;
     return;
   }
   if (options.direction !== "long" && options.direction !== "short") {
     console.log(chalk.red('Missing or invalid --direction <long|short>'));
     printUsage();
+    process.exitCode = 1;
     return;
   }
 
@@ -50,6 +52,7 @@ export async function journalAddCommand(options: JournalAddOptions): Promise<voi
   } catch (err) {
     console.log(chalk.red((err as Error).message));
     printUsage();
+    process.exitCode = 1;
     return;
   }
 

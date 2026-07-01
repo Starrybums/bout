@@ -22,6 +22,7 @@ export function modelListCommand(): void {
 export function modelSetCommand(provider: string): void {
   if (!ALL_PROVIDERS.includes(provider as ModelProvider)) {
     console.log(chalk.red(`Unknown provider "${provider}". Valid options: ${ALL_PROVIDERS.join(", ")}`));
+    process.exitCode = 1;
     return;
   }
 
