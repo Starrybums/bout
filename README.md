@@ -28,13 +28,26 @@ output — never "buy now," "guaranteed trade," or "perfect signal."
 
 ---
 
+## Requires your own AI provider
+
+BOUT itself is free and open source, but **`bout brief` and `bout confluence`
+require a configured AI provider to run — there is no offline/mock AI mode.**
+Pick one:
+
+- **Claude** or **OpenAI** — needs your own API key, billed per-token by that
+  provider (separate from any ChatGPT/Claude.ai subscription)
+- **Ollama** — free, runs a model locally, no API key, no per-token cost
+
+Without one of these configured, `bout brief` and `bout confluence` will
+refuse to run and tell you so. `bout journal add` still works fully without
+one — the R:R math and rule-violation checks are non-AI heuristics; only the
+bonus AI coaching note is skipped.
+
 ## What's actually in this build
 
 - A working CLI (`bout ...`) covering every command listed below.
-- A **mock AI model** that works with **zero API keys** — the whole tool is
-  usable offline immediately after `npm install`.
-- Optional model providers (Claude, OpenAI, Ollama) you can switch to once you
-  add your own keys/local server.
+- Model providers (Claude, OpenAI, Ollama) you configure with your own
+  keys/local server — see **Configuring AI model providers** below.
 - **Sample** economic-calendar and news data, and **structured mock/placeholder**
   data for order flow, volume, heat maps, and ICT concepts — clearly labeled
   as such everywhere it's used, with clean interfaces so real feeds can be
@@ -141,7 +154,7 @@ your watchlist (or a default basket if your watchlist is empty).
 | `bout journal add --symbol ... --direction ... --entry ... --exit ... --stop ... --target ... [--setup ...] [--emotion ...] [--notes ...]` | Log a trade; runs the Journal Agent and prints/saves an AI-assisted review |
 | `bout journal list` | List logged trades with realized R:R |
 | `bout report daily` | End-of-day summary: trades, win/loss, average R:R |
-| `bout model list` / `bout model set <provider>` | Show/switch AI model provider: `mock` \| `claude` \| `openai` \| `ollama` |
+| `bout model list` / `bout model set <provider>` | Show/switch AI model provider: `claude` \| `openai` \| `ollama` — one is required for `brief`/`confluence` |
 | `bout alert test` | Send a test alert to the terminal |
 
 Run `bout <command> --help` or `bout --help` any time for built-in usage.
@@ -170,19 +183,23 @@ Every report is also saved to `reports/confluence-YYYY-MM-DD.md`.
 
 ## Configuring AI model providers
 
-BOUT works out of the box with the **mock model** — no keys needed.
-To use a real model:
+**Required** — `bout brief` and `bout confluence` will refuse to run until one
+of these is set up:
 
 1. Copy `.env.example` to `.env`.
 2. Fill in the provider you want:
-   - **Claude:** `ANTHROPIC_API_KEY` (+ optional `ANTHROPIC_MODEL`)
-   - **OpenAI:** `OPENAI_API_KEY` (+ optional `OPENAI_MODEL`)
-   - **Ollama:** `OLLAMA_BASE_URL` + `OLLAMA_MODEL` (run `ollama pull <model>` first; no key needed)
+   - **Claude:** `ANTHROPIC_API_KEY` (+ optional `ANTHROPIC_MODEL`) — get a key at [console.anthropic.com](https://console.anthropic.com/settings/keys), billed per-token
+   - **OpenAI:** `OPENAI_API_KEY` (+ optional `OPENAI_MODEL`) — billed per-token
+   - **Ollama:** `OLLAMA_BASE_URL` + `OLLAMA_MODEL` (run `ollama pull <model>` first) — free, local, no key needed
 3. Switch the active provider:
    ```bash
-   bout model set claude   # or openai, or ollama, or mock
+   bout model set claude   # or openai, or ollama
    bout model list         # confirms what's active/configured
    ```
+
+`bout journal add` is the one exception — its R:R math and rule-violation
+checks are non-AI heuristics and work with no provider configured at all;
+only its bonus AI coaching note is skipped until you set one up.
 
 If a provider isn't configured, BOUT doesn't crash — agents that call the
 model fall back to a clear error message plus a structural/heuristic summary.
@@ -209,7 +226,7 @@ bout/
     memory/                    # sqliteStore (watchlist + journal), markdownStore (reports), vectorStore (placeholder)
     config/                    # defaults, .env loading, config.json persistence
     types/                     # all shared types in one file
-    modelRouter.ts              # routes to mock / claude / openai / ollama
+    modelRouter.ts              # routes to claude / openai / ollama — no mock/offline path
   data/
     sample/
       calendar.sample.json      # sample economic calendar

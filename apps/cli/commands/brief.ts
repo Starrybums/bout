@@ -1,5 +1,5 @@
 import chalk from "chalk";
-import { loadConfig, DISCLAIMER } from "../../../src/config/defaultConfig";
+import { loadConfig, getActiveModelConfig, DISCLAIMER } from "../../../src/config/defaultConfig";
 import { SqliteStore } from "../../../src/memory/sqliteStore";
 import { writeBriefMarkdown } from "../../../src/memory/markdownStore";
 import { getEventsForToday } from "../../../src/tools/calendarTool";
@@ -53,7 +53,18 @@ function summarizeVolume(bundles: SymbolAnalysisBundle[]): string {
 
 export async function briefTodayCommand(): Promise<void> {
   const config = loadConfig();
-  const modelConfig = config.models[config.modelProvider];
+  const modelConfig = getActiveModelConfig(config);
+  if (!modelConfig) {
+    console.log(chalk.red("No AI provider configured — `bout brief` requires one."));
+    console.log(
+      chalk.dim(
+        "BOUT has no offline/mock AI mode. Add an API key to .env (Claude or OpenAI), or point Ollama at a " +
+          "local server, then run `bout model set <claude|openai|ollama>`. See `bout model list` for current status."
+      )
+    );
+    process.exitCode = 1;
+    return;
+  }
   const store = new SqliteStore(config.dbPath);
 
   let brief: DailyBrief;

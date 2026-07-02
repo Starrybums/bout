@@ -3,7 +3,8 @@ import { callModel } from "../modelRouter";
 
 export interface JournalAgentInput {
   entry: JournalEntry;
-  modelConfig: ModelProviderConfig;
+  /** null when no AI provider is configured — the AI coaching note is skipped, everything else still runs. */
+  modelConfig: ModelProviderConfig | null;
 }
 
 export interface JournalAgentOutput {
@@ -91,6 +92,14 @@ export async function runJournalAgent(input: JournalAgentInput): Promise<AgentRe
   const review = heuristicReview(entry, rr);
   const notes: string[] = ["Risk/reward and rule-violation checks are heuristic, not AI-generated."];
 
+  if (!input.modelConfig) {
+    notes.push(
+      "No AI provider configured — skipping AI coaching note. Run `bout model set <claude|openai|ollama>` " +
+        "after adding an API key to .env for personalized coaching on future entries."
+    );
+    return { agent: AGENT_NAME, generatedAt: new Date().toISOString(), data: { review }, notes };
+  }
+
   try {
     const response = await callModel(
       {
@@ -111,9 +120,6 @@ export async function runJournalAgent(input: JournalAgentInput): Promise<AgentRe
       input.modelConfig
     );
     review.improvementForNextTime.push(`AI coaching note: ${response.text}`);
-    if (response.provider === "mock") {
-      notes.push("AI coaching note generated with the mock model — connect a real provider for personalized coaching.");
-    }
   } catch (err) {
     notes.push(`AI coaching note skipped (model call failed: ${(err as Error).message}).`);
   }

@@ -5,7 +5,7 @@
 
 export type ImpactLevel = "low" | "medium" | "high";
 export type Direction = "long" | "short";
-export type ModelProvider = "mock" | "claude" | "openai" | "ollama";
+export type ModelProvider = "claude" | "openai" | "ollama";
 
 // ---------------------------------------------------------------------------
 // Economic calendar
@@ -145,7 +145,7 @@ export interface ModelMessage {
 
 export interface ModelRequest {
   messages: ModelMessage[];
-  /** Hint for the mock model so canned responses stay relevant */
+  /** Hint used to route/log which kind of prompt this is (e.g. "daily-brief", "journal-review") */
   context?: Record<string, unknown>;
 }
 
@@ -167,7 +167,8 @@ export interface ModelProviderConfig {
 // ---------------------------------------------------------------------------
 
 export interface AppConfig {
-  modelProvider: ModelProvider;
+  /** null means no AI provider has been configured yet — AI-dependent commands must refuse to run. */
+  modelProvider: ModelProvider | null;
   models: Record<ModelProvider, ModelProviderConfig>;
   dbPath: string;
   reportsDir: string;

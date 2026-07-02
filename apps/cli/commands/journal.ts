@@ -1,6 +1,6 @@
 import * as crypto from "node:crypto";
 import chalk from "chalk";
-import { loadConfig } from "../../../src/config/defaultConfig";
+import { loadConfig, getActiveModelConfig } from "../../../src/config/defaultConfig";
 import { SqliteStore } from "../../../src/memory/sqliteStore";
 import { writeJournalReviewMarkdown } from "../../../src/memory/markdownStore";
 import { runJournalAgent } from "../../../src/agents/journalAgent";
@@ -76,7 +76,7 @@ export async function journalAddCommand(options: JournalAddOptions): Promise<voi
     store.addJournalEntry(entry);
     console.log(chalk.green(`✔ Logged trade ${entry.symbol} (${entry.direction}).`));
 
-    const result = await runJournalAgent({ entry, modelConfig: config.models[config.modelProvider] });
+    const result = await runJournalAgent({ entry, modelConfig: getActiveModelConfig(config) });
     store.saveJournalReview(result.data.review);
     const reviewPath = writeJournalReviewMarkdown(entry, result.data.review);
 

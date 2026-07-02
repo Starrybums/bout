@@ -260,7 +260,7 @@
 
     <section id="features">
       <h2>One CLI, a full research desk</h2>
-      <p class="lede">Every command works offline, immediately, with zero API keys — a built-in mock model covers everything until you wire in Claude, OpenAI, or a local Ollama.</p>
+      <p class="lede">BOUT itself is free and open source. <strong>bout brief and bout confluence require your own AI provider to run — there is no offline/mock AI mode.</strong> Bring a Claude or OpenAI API key (your own usage cost, billed per-token by that provider), or run Ollama locally for free. <code>bout journal add</code> is the exception — its R:R math and rule checks work with no provider at all; only the bonus AI coaching note needs one.</p>
       <div class="features">
         <div class="feat"><code>$ bout brief today</code><p>Daily briefing: macro events, news impact, risk level, watchlist, confluence snapshot.</p></div>
         <div class="feat"><code>$ bout confluence today</code><p>The synthesis report — every module cross-referenced against a 9-strategy knowledge base.</p></div>
@@ -305,12 +305,15 @@
 
     <section id="install">
       <h2>Install</h2>
-      <p class="lede">Requires Node.js 22.5+ (uses the built-in <a href="https://nodejs.org/api/sqlite.html">node:sqlite</a> — no native deps to compile). Free, MIT-licensed, works offline out of the box.</p>
+      <p class="lede">Requires Node.js 22.5+ (uses the built-in <a href="https://nodejs.org/api/sqlite.html">node:sqlite</a> — no native deps to compile). Free, MIT-licensed.</p>
       <div class="install-block"><span class="p">$</span> <span class="c">git clone https://github.com/Starrybums/bout.git</span>
 <span class="p">$</span> <span class="c">cd bout &amp;&amp; npm install &amp;&amp; npm run build</span>
 <span class="p">$</span> <span class="c">npm link</span>          <span class="d"># optional: makes `bout` available globally</span>
 <span class="p">$</span> <span class="c">bout init</span>
+<span class="p">$</span> <span class="c">cp .env.example .env</span>   <span class="d"># then add ANTHROPIC_API_KEY, OPENAI_API_KEY, or point OLLAMA_BASE_URL at a local server</span>
+<span class="p">$</span> <span class="c">bout model set claude</span>  <span class="d"># or openai, or ollama</span>
 <span class="p">$</span> <span class="c">bout brief today</span></div>
+      <p class="lede" style="margin-top:16px">No provider configured yet? <code>bout brief</code> and <code>bout confluence</code> will tell you so and exit cleanly rather than faking a result — <code>bout journal add</code>, <code>bout watch add</code>, and <code>bout strategy list</code> all work immediately with no setup.</p>
     </section>
   </div>
 </main>

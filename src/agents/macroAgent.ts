@@ -42,9 +42,6 @@ export async function runMacroAgent(input: MacroAgentInput): Promise<AgentResult
       input.modelConfig
     );
     summary = response.text;
-    if (response.provider === "mock") {
-      notes.push("Generated with the mock model — connect a real provider for live AI summaries.");
-    }
   } catch (err) {
     summary =
       `Could not generate an AI summary (${(err as Error).message}). ` +

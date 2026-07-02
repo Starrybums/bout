@@ -16,7 +16,8 @@ export function modelListCommand(): void {
     console.log(`${marker} ${chalk.bold(provider.padEnd(8))} model: ${(providerConfig.model || "n/a").padEnd(22)} [${status}]`);
   }
   console.log("");
-  console.log(chalk.dim("Switch providers with: bout model set <mock|claude|openai|ollama>"));
+  console.log(chalk.dim("Switch providers with: bout model set <claude|openai|ollama>"));
+  console.log(chalk.dim("BOUT has no offline/mock AI mode — a real provider is required for brief/confluence."));
 }
 
 export function modelSetCommand(provider: string): void {
@@ -28,11 +29,11 @@ export function modelSetCommand(provider: string): void {
 
   const config = loadConfig();
   const providerConfig = config.models[provider as ModelProvider];
-  if (!isProviderConfigured(providerConfig) && provider !== "mock") {
+  if (!isProviderConfigured(providerConfig)) {
     console.log(
       chalk.yellow(
         `Warning: "${provider}" doesn't look fully configured yet (missing API key / connection info in .env). ` +
-          "Saving the preference anyway — calls will fail with a clear error until it's configured."
+          "Saving the preference anyway — AI-dependent commands (brief, confluence) will refuse to run until it's configured."
       )
     );
   }

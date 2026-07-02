@@ -157,7 +157,7 @@ model
   });
 model
   .command("set <provider>")
-  .description("Set the active model provider (mock | claude | openai | ollama)")
+  .description("Set the active model provider (claude | openai | ollama)")
   .action((provider: string) => {
     modelSetCommand(provider);
   });

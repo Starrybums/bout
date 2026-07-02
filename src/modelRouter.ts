@@ -1,44 +1,6 @@
 import type { ModelProvider, ModelProviderConfig, ModelRequest, ModelResponse } from "./types/index";
 
 // ---------------------------------------------------------------------------
-// Mock model — works with zero API keys, zero network calls.
-// This is the default provider so the whole CLI is usable immediately.
-// ---------------------------------------------------------------------------
-
-function callMockModel(request: ModelRequest): ModelResponse {
-  const lastUser = [...request.messages].reverse().find((m) => m.role === "user");
-  const topic = (request.context?.topic as string) || "general";
-
-  const canned: Record<string, string> = {
-    "daily-brief":
-      "Mock model summary: today's calendar and headlines suggest elevated event risk. " +
-      "This is a templated placeholder response — connect a real model provider " +
-      "(claude, openai, or ollama) with `bout model set <provider>` for live AI summaries.",
-    "journal-review":
-      "Mock model summary: based on the entry details provided, consider whether the " +
-      "stop and target were sized consistently with your stated setup. This is a templated " +
-      "placeholder response — connect a real model provider for deeper, personalized review text.",
-    "risk-check":
-      "Mock model summary: one or more high-impact events are on today's calendar. " +
-      "Reduce size or sit out the immediate post-release window if you tend to overtrade volatility.",
-    confluence:
-      "Mock model summary: today's rhythm, heat map, and order-flow/ICT reads combine into mixed contextual bias across " +
-      "the analyzed basket — conditions to monitor, several setups requiring confirmation rather than a clean directional " +
-      "picture. This is a templated placeholder response — connect a real model provider " +
-      "(claude, openai, or ollama) with `bout model set <provider>` for live AI synthesis. Research and market context only, not financial advice.",
-    general:
-      "Mock model response: no live AI provider is configured, so this is a static placeholder. " +
-      `Your message was: "${(lastUser?.content || "").slice(0, 160)}"`,
-  };
-
-  return {
-    provider: "mock",
-    model: "bout-mock-v1",
-    text: canned[topic] || canned.general,
-  };
-}
-
-// ---------------------------------------------------------------------------
 // Claude (Anthropic) — placeholder. Wire-format is correct; requires
 // ANTHROPIC_API_KEY to actually call out.
 // ---------------------------------------------------------------------------
@@ -46,7 +8,7 @@ function callMockModel(request: ModelRequest): ModelResponse {
 async function callClaude(request: ModelRequest, config: ModelProviderConfig): Promise<ModelResponse> {
   if (!config.apiKey) {
     throw new Error(
-      "No ANTHROPIC_API_KEY found. Add one to your .env file, or run `bout model set mock` to keep using the offline mock model."
+      "No ANTHROPIC_API_KEY found. Add one to your .env file, then run `bout model set claude`."
     );
   }
 
@@ -91,7 +53,7 @@ async function callClaude(request: ModelRequest, config: ModelProviderConfig): P
 async function callOpenAI(request: ModelRequest, config: ModelProviderConfig): Promise<ModelResponse> {
   if (!config.apiKey) {
     throw new Error(
-      "No OPENAI_API_KEY found. Add one to your .env file, or run `bout model set mock` to keep using the offline mock model."
+      "No OPENAI_API_KEY found. Add one to your .env file, then run `bout model set openai`."
     );
   }
 
@@ -161,8 +123,6 @@ async function callOllama(request: ModelRequest, config: ModelProviderConfig): P
 
 export async function callModel(request: ModelRequest, config: ModelProviderConfig): Promise<ModelResponse> {
   switch (config.provider) {
-    case "mock":
-      return callMockModel(request);
     case "claude":
       return callClaude(request, config);
     case "openai":
@@ -176,8 +136,6 @@ export async function callModel(request: ModelRequest, config: ModelProviderConf
 
 export function isProviderConfigured(config: ModelProviderConfig): boolean {
   switch (config.provider) {
-    case "mock":
-      return true;
     case "claude":
     case "openai":
       return Boolean(config.apiKey);
@@ -188,4 +146,4 @@ export function isProviderConfigured(config: ModelProviderConfig): boolean {
   }
 }
 
-export const ALL_PROVIDERS: ModelProvider[] = ["mock", "claude", "openai", "ollama"];
+export const ALL_PROVIDERS: ModelProvider[] = ["claude", "openai", "ollama"];

@@ -2,6 +2,7 @@ import * as fs from "node:fs";
 import * as path from "node:path";
 import * as dotenv from "dotenv";
 import type { AppConfig, ModelProvider, ModelProviderConfig } from "../types/index";
+import { isProviderConfigured } from "../modelRouter";
 
 dotenv.config();
 
@@ -37,7 +38,6 @@ export const DISCLAIMER =
 
 function buildDefaultModelConfigs(): Record<ModelProvider, ModelProviderConfig> {
   return {
-    mock: { provider: "mock", model: "bout-mock-v1" },
     claude: {
       provider: "claude",
       apiKey: process.env.ANTHROPIC_API_KEY || "",
@@ -57,9 +57,9 @@ function buildDefaultModelConfigs(): Record<ModelProvider, ModelProviderConfig> 
 }
 
 export function getDefaultConfig(): AppConfig {
-  const envProvider = (process.env.BOUT_MODEL_PROVIDER || "mock") as ModelProvider;
-  const validProviders: ModelProvider[] = ["mock", "claude", "openai", "ollama"];
-  const modelProvider = validProviders.includes(envProvider) ? envProvider : "mock";
+  const validProviders: ModelProvider[] = ["claude", "openai", "ollama"];
+  const envProvider = process.env.BOUT_MODEL_PROVIDER as ModelProvider | undefined;
+  const modelProvider = envProvider && validProviders.includes(envProvider) ? envProvider : null;
 
   return {
     modelProvider,
@@ -69,6 +69,17 @@ export function getDefaultConfig(): AppConfig {
     initialized: false,
     createdAt: new Date().toISOString(),
   };
+}
+
+/**
+ * Returns the active provider's config, or null if no real AI provider (Claude,
+ * OpenAI, or Ollama) is configured yet. BOUT has no offline/mock AI mode —
+ * AI-dependent commands must check this and refuse to run when it's null.
+ */
+export function getActiveModelConfig(config: AppConfig): ModelProviderConfig | null {
+  if (!config.modelProvider) return null;
+  const providerConfig = config.models[config.modelProvider];
+  return isProviderConfigured(providerConfig) ? providerConfig : null;
 }
 
 function ensureDirs(): void {
