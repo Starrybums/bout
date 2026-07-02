@@ -7,7 +7,7 @@ understand what the market is about before you trade — combining macro news,
 market context, order flow concepts, volume, heat maps, market rhythm,
 ICT-style concepts, strategy confluence, risk warnings, and journal feedback.
 
-**JustBout.com** · *Know what the market is about before you trade.*
+**[justbout.online](https://justbout.online)** · *Know what the market is about before you trade.*
 
 > **BOUT provides market context, educational analysis, and risk awareness
 > only. It does not provide financial advice and makes no guarantees about
